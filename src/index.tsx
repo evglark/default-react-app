@@ -1,10 +1,17 @@
+/* eslint-disable comma-dangle */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 
-ReactDOM.render(
+import './index.css';
+
+const rootElement = document.getElementById('root') as HTMLElement;
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
     <ThemeProvider theme={{}}>
-        1
-    </ThemeProvider>,
-    document.getElementById('root'),
+        <React.StrictMode>
+            1
+        </React.StrictMode>
+    </ThemeProvider>
 );
