@@ -7,11 +7,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --open",
     "start:mock": "cross-env NODE_ENV=development cross-env MOCKS_MODE=true webpack serve --open",
-    "start:analyser": "cross-env NODE_ENV=development cross-env BUNDLE_ANALYSER=true webpack serve --open",
     "start:prod": "cross-env NODE_ENV=production cross-env MOCKS_MODE=true cross-env webpack serve",
-    "start:prod:analyser": "cross-env NODE_ENV=production cross-env BUNDLE_ANALYSER=true webpack serve",
     "build": "cross-env NODE_ENV=production webpack",
-    "build:analyser": "cross-env NODE_ENV=production cross-env BUNDLE_ANALYSER=true webpack",
     "eslint": "eslint ./src",
     "test": "npx jest"
   },
