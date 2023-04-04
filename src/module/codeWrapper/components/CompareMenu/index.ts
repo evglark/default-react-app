@@ -1,0 +1,1 @@
+export { CompareMenu } from './CompareMenu';
