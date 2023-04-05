@@ -1,1 +1,0 @@
-export { Codemirror } from './Codemirror';

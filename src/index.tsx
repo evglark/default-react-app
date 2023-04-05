@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { Router } from './Router';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 const rootElement = document.getElementById('root') as HTMLElement;
