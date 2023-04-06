@@ -1,0 +1,9 @@
+.jsonBuilder {
+    .objectBlock {
+        padding-left: 16px;
+        border-width: 4px;
+        border-style: solid;
+        border-image:
+            linear-gradient(to bottom, white, rgba(0, 0, 0, 0)) 10 100%;
+    }
+}
