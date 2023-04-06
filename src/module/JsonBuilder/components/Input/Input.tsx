@@ -6,10 +6,11 @@ import './style.scss';
 
 interface IProps {
     name: string;
+    onChangeName: () => void;
 }
 
 export const Input = (props: IProps) => {
-    const { name } = props;
+    const { name, onChangeName } = props;
     const [editMode, setEditMode] = useState(false);
 	const { ref, clickdOutside } = useOnClickOutside(false);
 
@@ -34,6 +35,7 @@ export const Input = (props: IProps) => {
                         id={`label-${name}`}
                         aria-label="input-key"
                         className="form-control lable-block"
+                        onChange={onChangeName}
                         ref={ref}
                     />
                 )}
