@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useState } from 'react';
 
 import { Input } from '../components/Input';
@@ -38,17 +39,26 @@ export const JsonBuilder = () => {
     const renderJson = () => {
         const readObject = (json: any) =>
             Object.keys(json).map((el, i) => {
-                console.log(0, typeof json[el], json[el]);
                 if (typeof json[el] === 'string' || typeof json[el] === 'number') {
-                    return <div id={el} key={el+i}>{`${el}: ${json[el]}`}</div>;
+                    return <Input name={el} onChangeName={changeName} key={el+i} />;
                 };
 
                 if (typeof json[el] === 'object') {
-                    const style = { marginLeft: 16 };
+                    const style = { marginLeft: 32 };
 
                     return (
-                        <div id={el} key={el+i}>
-                            {`${el}`}<div style={style}>{readObject(json[el])}</div>
+                        <div id={el} key={el+i} >
+                            <span className="input-group-text mb-3">{`${el}`}</span>
+                            <div style={style}>
+                                {readObject(json[el])}
+                                <button
+                                    type="button"
+                                    className="btn btn-primary mb-3"
+                                    onClick={addNewField}
+                                >
+                                    Add field
+                                </button>
+                            </div>
                         </div>
                     );
                 };
@@ -60,14 +70,7 @@ export const JsonBuilder = () => {
     return (
         <div className="jsonBuilder" style={{ color: 'white' }}>
             <h1>JSON Builder</h1>
-            {/* {Object.keys(JSON).map((el, i) => (
-                <Input name={el} onChangeName={changeName} key={el+i} />
-            ))} */}
-
             {renderJson()}
-
-            <br/>
-            <br/>
             <button
                 type="button"
                 className="btn btn-primary"

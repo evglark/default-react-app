@@ -1,7 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 import React, { useEffect, useState } from 'react';
 
-import { useOnClickOutside } from '../../../../hooks/useonClickOutside';
+import { useOnClickOutside } from '../../../../hooks/useOnClickOutside.js';
 import './style.scss';
 
 interface IProps {
@@ -22,11 +21,20 @@ export const Input = (props: IProps) => {
         if (editMode) onToggleEditMode();
     }, [clickdOutside]);
 
+    useEffect(() => {
+        // @ts-ignore
+        if (editMode) ref?.current?.focus();
+    }, [editMode]);
+
     return (
         <div className="input-component">
             <div className="input-group mb-3">
                 {!editMode ? (
-                    <span id={`label-${name}`} className="input-group-text lable-block" onClick={onToggleEditMode}>
+                    <span
+                        id={`label-${name}`}
+                        className="input-group-text lable-block"
+                        onClick={onToggleEditMode}
+                    >
                         {name}
                     </span>
                 ) : (
