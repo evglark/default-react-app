@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Input } from '../Input';
 
 import { ObjectBlock } from './ObjectBlock';
-
 import './style.scss';
 
 export const JsonForm = () => {
