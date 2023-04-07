@@ -1,5 +1,6 @@
-/* eslint-disable array-callback-return */
 import React, { useState } from 'react';
+import { faClone } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Input } from '../Input';
 
@@ -55,6 +56,10 @@ export const JsonForm = () => {
     return (
         <div className="jsonForm">
             <h1 className="mb-3">JSON Builder</h1>
+            <FontAwesomeIcon icon={faClone} />
+            <div className="input-group input-type-file mb-5">
+                <input type="file" className="form-control" id="inputGroupFile01"/>
+            </div>
             {renderJson()}
             <button
                 type="button"
@@ -63,6 +68,11 @@ export const JsonForm = () => {
             >
                 Add field
             </button>
+            <div className="d-flex flex-row-reverse">
+                <button type="button" className="btn btn-primary" onClick={addNewField}>
+                    Download JSON
+                </button>
+            </div>
         </div>
     );
 };
