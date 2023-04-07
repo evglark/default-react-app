@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 
 import { Input } from '../Input';
 
+import { ObjectBlock } from './ObjectBlock';
+
 import './style.scss';
 
 export const JsonForm = () => {
@@ -24,52 +26,36 @@ export const JsonForm = () => {
         console.log(0);
     };
 
-    const x = {
-        a: 'one',
-        ab: {
-            a: 'A',
-            b: 'B',
-            c: {
-                aaa: 'AAA',
-                bbb: 999,
-                ccc: 'ccc6',
-            },
-        },
-        abc: 1,
-    };
-
     const renderJson = () => {
         const readObject = (json: any) =>
             Object.keys(json).map((el, i) => {
-                if (typeof json[el] === 'string' || typeof json[el] === 'number') {
-                    return <Input name={el} onChangeName={changeName} key={el+i} />;
-                };
+                if (Array.isArray(json[el])) {
+                    return (
+                        <React.Fragment key={el+i}>
+                            <ObjectBlock el={el}>
+                                {json[el].map((arrElement: any) =>
+                                    typeof json[el] === 'object'
+                                        ? <ObjectBlock el={el}>{readObject(json[el])}</ObjectBlock>
+                                        : <Input value={arrElement} onChangeName={changeName} key={el+i} />,
+                                )}
+                            </ObjectBlock>
+                        </React.Fragment>
+                    );
+                }
 
                 if (typeof json[el] === 'object') {
-                    return (
-                        <div id={el} key={el+i}>
-                            <span className="input-group-text mb-3">{`${el}`}</span>
-                            <div className="objectBlock">
-                                {readObject(json[el])}
-                                <button
-                                    type="button"
-                                    className="btn btn-primary mb-3"
-                                    onClick={addNewField}
-                                >
-                                    Add field
-                                </button>
-                            </div>
-                        </div>
-                    );
+                    return <ObjectBlock el={el}>{readObject(json[el])}</ObjectBlock>;
                 };
+
+                return <Input name={el} value={json[el]} onChangeName={changeName} key={el+i} />;
             });
 
-        return readObject(x);
+        return readObject(JSON);
     };
 
     return (
-        <div className="jsonForm" style={{ color: 'white' }}>
-            <h1>JSON Builder</h1>
+        <div className="jsonForm">
+            <h1 className="mb-3">JSON Builder</h1>
             {renderJson()}
             <button
                 type="button"

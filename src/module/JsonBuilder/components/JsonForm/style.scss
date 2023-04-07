@@ -1,9 +1,14 @@
 .jsonBuilder {
     .objectBlock {
         padding-left: 16px;
-        border-width: 4px;
-        border-style: solid;
+        border-left-width: 4px;
+        border-left-style: solid;
         border-image:
-            linear-gradient(to bottom, white, rgba(0, 0, 0, 0)) 10 100%;
+            linear-gradient(
+                to bottom,
+                var(--bs-emphasis-color),
+                var(--bs-tertiary-bg),
+                var(--bs-body-bg)
+            ) 1 100%;
     }
 }
