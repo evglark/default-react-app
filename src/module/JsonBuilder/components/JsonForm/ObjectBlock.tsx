@@ -3,16 +3,26 @@ import React from 'react';
 import './style.scss';
 
 interface IProps {
-    el: string;
+    el: any;
+    name?: string;
     children: React.ReactNode;
 }
 
 export const ObjectBlock = (props: IProps) => {
-    const { el, children } = props;
+    const { el, name, children } = props;
+    const type = Array.isArray(el) ? '[]' : typeof el === 'object' ? '{}' : '';
+    const typeName = Array.isArray(el) ? 'Array' : typeof el === 'object' ? 'Object' : '';
 
     return (
-        <div id={el} className="objectblock-compoentn">
-            <span className="input-group-text mb-3">{`${el}`}</span>
+        <div className="objectblock-compoentn">
+            <div className="input-group mb-3">
+                <span className="input-group-text">
+                    {`${type}`}
+                </span>
+                <div className="form-control input-group-text">
+                    {`${name ? name : typeName}`}
+                </div>
+            </div>
             <div className="objectBlock">
                 {children}
                 <button

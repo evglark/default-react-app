@@ -7,25 +7,30 @@ import './style.scss';
 interface IProps {
     name?: string;
     value?: string | number;
-    onChangeName: () => void;
+    onChangeValue: (e: React.FormEvent) => void;
 }
 
 export const Input = (props: IProps) => {
-    const { name, value, onChangeName } = props;
+    const { name, value, onChangeValue } = props;
     const [editMode, setEditMode] = useState(false);
-	const { ref, clickdOutside } = useOnClickOutside(false);
+	const { ref, clickdOutside, setClickOutside } = useOnClickOutside();
 
     const onToggleEditMode = () => {
         setEditMode((m) => !m);
     };
 
     useEffect(() => {
-        if (editMode) onToggleEditMode();
+        if (clickdOutside) {
+            onToggleEditMode();
+            setClickOutside(false);
+        }
     }, [clickdOutside]);
 
     useEffect(() => {
-        // @ts-ignore
-        if (editMode) ref?.current?.focus();
+        if (editMode) {
+            // @ts-ignore
+            ref?.current?.focus();
+        }
     }, [editMode]);
 
     return (
@@ -35,7 +40,7 @@ export const Input = (props: IProps) => {
                     !editMode ? (
                         <span
                             id={`label-${name}`}
-                            className="input-group-text lable-block"
+                            className="input-group-text lable-block cursor-pointer"
                             onClick={onToggleEditMode}
                         >
                             {name}
@@ -46,7 +51,6 @@ export const Input = (props: IProps) => {
                             id={`label-${name}`}
                             aria-label="input-key"
                             className="form-control lable-block"
-                            onChange={onChangeName}
                             ref={ref}
                         />
                     )
@@ -56,6 +60,7 @@ export const Input = (props: IProps) => {
                     className="form-control"
                     aria-label="input-value"
                     aria-describedby={`input-${name}`}
+                    onChange={onChangeValue}
                     value={value}
                 />
             </div>

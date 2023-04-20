@@ -8,7 +8,7 @@ import { ObjectBlock } from './ObjectBlock';
 import './style.scss';
 
 export const JsonForm = () => {
-    const [JSON, setJSON] = useState({
+    const [data, setData] = useState({
         name: '',
         obj: { a: 'AA', b: 'BB' },
         obj1: { arr: ['AA', 'BB'] },
@@ -18,50 +18,62 @@ export const JsonForm = () => {
     });
 
     const resetJson = async () => {
-        const data = require('./users.json');
-        setJSON(data);
+        const json = require('./users.json');
+        setData(json);
     };
 
     const addNewField = () => {
         console.log(1);
     };
 
-    const changeName = () => {
-        console.log(0);
+    const changeValue = (e: React.FormEvent) => {
+        console.log(0, e);
     };
 
     const renderJson = (json: any) => {
-        const renderArray = (array: any[]) => {
-            return (
-                <div className="array-block">
-                    {array.map((arrayElement: any, i: number) => {
-                        if (Array.isArray(arrayElement)) {
-                            return <ObjectBlock el={'[]'}>{renderJson(arrayElement)}</ObjectBlock>;
-                        }
+        const renderArray = (array: any[]) => (
+            <div className="array-block">
+                {array.map((arrayElement: any, i: number) => {
+                    if (Array.isArray(arrayElement)) {
+                        return (
+                            <React.Fragment key={`array-array-[${i}]-${JSON.stringify(arrayElement)}`}>
+                                <ObjectBlock el={arrayElement}>{renderJson(arrayElement)}</ObjectBlock>
+                            </React.Fragment>
+                        );
+                    }
 
-                        if (typeof arrayElement === 'object') {
-                            return <ObjectBlock el={'{} ' + arrayElement}>{renderJson(arrayElement)}</ObjectBlock>;
-                        }
+                    if (typeof arrayElement === 'object') {
+                        return (
+                            <React.Fragment key={`array-object-${JSON.stringify(arrayElement)}`}>
+                                <ObjectBlock el={arrayElement}>{renderJson(arrayElement)}</ObjectBlock>
+                            </React.Fragment>
+                        );
+                    }
 
-                        return <Input value={arrayElement} onChangeName={changeName} key={arrayElement + i} />;
-                    })}
-                </div>
-            );
-        };
+                    return <Input value={arrayElement} onChangeValue={changeValue} key={arrayElement + i} />;
+                })}
+            </div>
+        );
 
-        const renderObject = (object: any) => {
-            return Object.keys(object).map((el, i) => {
-                if (Array.isArray(object[el])) {
-                    return <ObjectBlock el={'[] ' + el}>{renderJson(object[el])}</ObjectBlock>;
-                }
+        const renderObject = (object: any) => Object.keys(object).map((el, i) => {
+            if (Array.isArray(object[el])) {
+                return (
+                    <React.Fragment key={`object-array-${JSON.stringify(object[el])}`}>
+                        <ObjectBlock el={object[el]} name={el}>{renderJson(object[el])}</ObjectBlock>
+                    </React.Fragment>
+                );
+            }
 
-                if (typeof object[el] === 'object') {
-                    return <ObjectBlock el={'{} ' + el}>{renderJson(object[el])}</ObjectBlock>;
-                };
+            if (typeof object[el] === 'object') {
+                return (
+                    <React.Fragment key={`object-object-${JSON.stringify(object[el])}`}>
+                        <ObjectBlock el={object[el]} name={el}>{renderJson(object[el])}</ObjectBlock>
+                    </React.Fragment>
+                );
+            };
 
-                return <Input name={el} value={object[el]} onChangeName={changeName} key={el + i} />;
-            });
-        };
+            return <Input name={el} value={object[el]} onChangeValue={changeValue} key={el + i} />;
+        });
 
         if (Array.isArray(json)) return renderArray(json);
         if (typeof json === 'object') return renderObject(json);
@@ -75,7 +87,7 @@ export const JsonForm = () => {
                     <FontAwesomeIcon icon={faRotateLeft} />
                 </button>
             </div>
-            {renderJson(JSON)}
+            {renderJson(data)}
             <button
                 type="button"
                 className="btn btn-primary"

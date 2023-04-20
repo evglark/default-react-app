@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-export const useOnClickOutside = (initialValue) => {
-	const [clickdOutside, setClickOutside] = useState(initialValue);
+export const useOnClickOutside = () => {
+	const [clickdOutside, setClickOutside] = useState(false);
     const ref = useRef(null);
 
     const handleClickOutside = (event) => {
@@ -18,5 +18,5 @@ export const useOnClickOutside = (initialValue) => {
         };
     }, []);
 
-    return { ref, clickdOutside };
+    return { ref, clickdOutside, setClickOutside };
 };
