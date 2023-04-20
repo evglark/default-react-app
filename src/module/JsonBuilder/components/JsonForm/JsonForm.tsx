@@ -50,7 +50,11 @@ export const JsonForm = () => {
                         );
                     }
 
-                    return <Input value={arrayElement} onChangeValue={changeValue} key={arrayElement + i} />;
+                    return (
+                        <React.Fragment key={arrayElement + i}>
+                            <Input value={arrayElement} onChangeValue={changeValue} />
+                        </React.Fragment>
+                    );
                 })}
             </div>
         );
@@ -72,7 +76,11 @@ export const JsonForm = () => {
                 );
             };
 
-            return <Input name={el} value={object[el]} onChangeValue={changeValue} key={el + i} />;
+            return (
+                <React.Fragment key={el + i}>
+                    <Input name={el} value={object[el]} onChangeValue={changeValue} />
+                </React.Fragment>
+            );
         });
 
         if (Array.isArray(json)) return renderArray(json);
