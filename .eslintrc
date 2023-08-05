@@ -6,6 +6,9 @@
     "unused-imports",
     "simple-import-sort"
   ],
+  "globals": {
+    "apiUri": "readonly"
+  },
   "rules": {
     "max-len": ["error", { "code": 120 }],
     "quotes": ["error", "single"],

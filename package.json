@@ -1,39 +1,27 @@
 {
   "name": "default-react-app",
   "version": "0.0.1",
-  "author": "e5l5v",
+  "author": "evglark",
   "license": "ISC",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack serve",
-    "start:mock": "cross-env NODE_ENV=development cross-env MOCKS_MODE=true webpack serve --open",
-    "start:prod": "cross-env NODE_ENV=production cross-env MOCKS_MODE=true cross-env webpack serve",
+    "dev": "cross-env NODE_ENV=development webpack serve",
+    "start": "cross-env NODE_ENV=production webpack serve",
     "build": "cross-env NODE_ENV=production webpack",
-    "eslint": "eslint ./src",
-    "test": "npx jest"
+    "eslint": "eslint ./src"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:evglark/default-react-app.git"
   },
   "dependencies": {
-    "@codemirror/lang-javascript": "^6.1.4",
-    "@fortawesome/free-brands-svg-icons": "^6.4.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.4.0",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@uiw/react-codemirror": "^4.19.9",
     "axios": "^1.3.4",
     "bootstrap": "^5.3.0-alpha3",
-    "codemirror": "^6.0.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.9.0",
-    "redux": "^4.2.1",
-    "redux-api-middleware": "^3.2.1",
-    "styled-components": "^5.3.8"
+    "react-router-dom": "^6.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -42,59 +30,29 @@
     "@babel/plugin-transform-runtime": "^7.21.0",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
-    "@babel/preset-typescript": "^7.21.0",
     "@svgr/webpack": "^6.5.1",
-    "@types/enzyme": "^3.10.12",
-    "@types/jest": "^29.4.0",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "@types/react-redux": "^7.1.25",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.26",
-    "@typescript-eslint/eslint-plugin": "^5.54.1",
-    "@typescript-eslint/parser": "^5.54.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^9.1.2",
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
-    "enzyme": "^3.11.0",
-    "enzyme-to-json": "^3.6.2",
+    "dotenv": "^16.3.1",
     "eslint": "^8.36.0",
     "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "favicons-webpack-plugin": "^6.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.3",
     "sass": "^1.59.2",
     "sass-loader": "^13.2.0",
-    "ts-jest": "^29.0.5",
-    "typescript": "^4.9.5",
     "url-loader": "^4.1.1",
     "webpack": "^5.76.1",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1",
-    "webpack-merge": "^5.8.0"
-  },
-  "jest": {
-    "verbose": true,
-    "collectCoverage": true,
-    "coveragePathIgnorePatterns": [
-      ".styled.ts"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx|js|jsx)$": "ts-jest"
-    },
-    "moduleNameMapper": {
-      ".+\\.(svg|png|jpg|eot|woff|woff2|ttf)$": "identity-obj-proxy"
-    },
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
+    "webpack-dev-server": "^4.11.1"
   }
 }

@@ -1,25 +1,25 @@
 const path = require('path');
-
+const dotenv = require('dotenv');
 const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
-const ContextReplacementPlugin = require('webpack').ContextReplacementPlugin;
 const DefinePlugin = require('webpack').DefinePlugin;
+const ContextReplacementPlugin = require('webpack').ContextReplacementPlugin;
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+dotenv.config();
+
 const supportedLocales = ['en-US', 'ru'];
 
-const isMocksMode = process.env.MOCKS_MODE || false;
-const isDevMode = process.env.NODE_ENV === 'development';
-
-const apiPath = '';
+const MODE = process.env.NODE_ENV || 'development';
+const isDevMode = MODE === 'development';
+const PORT = process.env.PORT || 3000;
+const apiUri = process.env.API_URL || '';
 
 /* Basic configuration */
 const config = {
-  target: ['web', 'es5'],
   mode: isDevMode ? 'development' : 'production',
-  entry: [
-    './src/index.tsx',
-  ],
+  entry: ['./src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle-[hash].js',
@@ -27,13 +27,13 @@ const config = {
     globalObject: 'this',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.json'],
   },
   optimization: {
     usedExports: true,
   },
   devServer: {
-    port: 3000,
+    port: PORT,
     hot: true,
     historyApiFallback: true,
   },
@@ -41,7 +41,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx|js)$/,
+        test: /\.(js|jsx)$/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -53,7 +53,6 @@ const config = {
                 },
               ],
               '@babel/preset-react',
-              '@babel/preset-typescript',
             ],
             plugins: [
               '@babel/plugin-proposal-class-properties',
@@ -101,16 +100,14 @@ const config = {
       /date-fns[/\\]/,
       new RegExp(`[/\\\\](${supportedLocales.join('|')})[/\\\\]index.js$`),
     ),
-    new DefinePlugin({
-      API_PATH: `'${apiPath}'`,
-      PUBLIC_PATH: '\'\'',
-      MOCKS_MODE: isMocksMode,
-      IS_DEV: isDevMode,
-    }),
     new HTMLWebpackPlugin({
       template: './public/index.html',
     }),
+    new DefinePlugin({
+      apiUri,
+    }),
     new CleanWebpackPlugin(),
+    new FaviconsWebpackPlugin('./public/favicon.ico'),
   ].filter(Boolean),
 };
 
