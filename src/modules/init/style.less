@@ -1,0 +1,42 @@
+.content {
+  display: flex;
+  min-height: 100vh;
+  line-height: 1.1;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+
+  h1 {
+    font-size: 3.6rem;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  .layout {
+    margin: 30px;
+    width: 600px;
+    height: 400px;
+    color: var(--textColor);
+    background: var(--layoutColor);
+    border: 1px solid var(--borderColor);
+    transition: var(--colorTransition);
+
+    span {
+      color: var(--subTextColor);
+      transition: var(--colorTransition);
+    }
+
+    .element {
+      margin: 30px;
+      width: 100px;
+      height: 100px;
+      background-color: var(--elementColor);
+      border: 1px solid var(--borderColor);
+      transition: var(--colorTransition);
+    }
+  }
+}
